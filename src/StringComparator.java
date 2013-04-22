@@ -1,6 +1,7 @@
 // Sasha Babayan & Brian Park
 // 4/21/2013
 // Project 2
+// hi
 
 class StringComparator implements Comparator<String>{
 
