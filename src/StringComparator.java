@@ -1,9 +1,9 @@
 // Sasha Babayan & Brian Park
 // 4/21/2013
 // Project 2
-// hi
 
-class StringComparator implements Comparator<String>{
+
+public class StringComparator implements Comparator<String>{
 
 	@Override
 	public int compare(String e1, String e2) {
