@@ -2,7 +2,7 @@
 // 4/21/2013
 // Project 2
 
-public class StringComparator implements Comparator<String>{
+class StringComparator implements Comparator<String>{
 
 	@Override
 	public int compare(String e1, String e2) {
