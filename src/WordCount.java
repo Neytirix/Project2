@@ -10,9 +10,14 @@ public class WordCount {
 	//      you might do a non-generic version first and then adjust it)
 	// return an array of DataCount objects containing each unique word 
 	public static <E> DataCount<E>[] getCountsArray(DataCounter<E> counter) {
-		System.err.println("Must implement getCountsArray in WordCount");
-		System.exit(1);
-		return null;
+		DataCount<E>[] DataCounterArray = (DataCount<E>[]) new Object[counter.getSize()];
+		SimpleIterator<DataCount<E>> iterator = counter.getIterator();
+		int i = 0;
+		while(iterator.hasNext()) {
+			DataCounterArray[i] = iterator.next();
+			i++;
+		}
+		return DataCounterArray;
 	}
 	
     private static void countWords(String file) {
