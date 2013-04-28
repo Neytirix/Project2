@@ -76,7 +76,10 @@ public class MoveToFrontList<E> implements DataCounter<E> {
 			
 			@Override
 			public DataCount<E> next() {
-				DataCount<E> dCount = new DataCount<E>(current.data, current.count);
+				if(!hasNext()) {
+        			throw new java.util.NoSuchElementException();
+				}
+        		DataCount<E> dCount = new DataCount<E>(current.data, current.count);
 				current = current.next;
 				return dCount;
 			}
