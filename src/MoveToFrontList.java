@@ -1,8 +1,8 @@
 
 public class MoveToFrontList<E> implements DataCounter<E> {
-	Comparator<? super E> comparator;
+	Comparator<? super E> comparator; //public private? 
 	public LinkedNode front;
-	int size;
+	int size; //public private?
 	
 	public MoveToFrontList(Comparator<? super E> c) {
 		comparator = c;

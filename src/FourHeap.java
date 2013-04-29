@@ -1,28 +1,36 @@
 
 public class FourHeap<E> implements PriorityQueue<E>{
-
+	Comparator<? super E> comparator; //public private?
+	private E[] arrayHeap;
+	int size; //public private?
+	
+	
+	public FourHeap(Comparator<? super E> c) {
+		comparator = c;
+		arrayHeap = (E[]) new Object[10];
+	}
+	
 	@Override
 	public void insert(Object item) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Object findMin() {
-		// TODO Auto-generated method stub
-		return null;
+	public E findMin() {
+		if (!isEmpty()) {
+			//throw exception
+		}
+		return arrayHeap[0]; //??
 	}
 
 	@Override
-	public Object deleteMin() {
-		// TODO Auto-generated method stub
+	public E deleteMin() {
 		return null;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return (size == 0);
 	}
 
 }
