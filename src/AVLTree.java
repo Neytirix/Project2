@@ -7,7 +7,13 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 	
 	@Override
 	public void incCount(E data) { //how much of this method can i copy from the super?
-		if (overallRoot == null) {
+		super.incCount(data);
+		AVLNode root = (AVLNode) overallRoot;
+		root.height = calculateHeight(root);
+		//check for rotations
+		
+		
+		/*if (overallRoot == null) {
 			overallRoot = new AVLNode(data);
 		}
 		AVLNode currentNode = (AVLNode) overallRoot;
@@ -34,10 +40,23 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 				
 			}
 		}
-		
+		*/
 		
 	}
 
+	private int calculateHeight(AVLNode root) {
+		if (root == null) {
+			return -1;
+		}
+		AVLNode left = (AVLNode) root.left;
+		AVLNode right = (AVLNode) root.right;
+		left.height = calculateHeight(left);
+		right.height = calculateHeight(right);
+		if(Math.abs(left.height-right.height) > 1) {
+			//rotate
+		}
+		return 1 + Math.max(left.height,right.height);
+	}
 	
 	/*
 	@Override
@@ -58,10 +77,11 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 	
 	public class AVLNode extends BSTNode {
 
-		//need to add height?
+		public int height;
 		
 		public AVLNode(E d) {
 			super(d);
+			height = 0;
 		}	
 	}
 
