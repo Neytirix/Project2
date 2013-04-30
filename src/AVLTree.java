@@ -10,7 +10,7 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 		super.incCount(data);
 		AVLNode root = (AVLNode) overallRoot;
 		root.height = calculateHeight(root);
-		//check for rotations
+		//check for rotations?
 		
 		
 		/*if (overallRoot == null) {

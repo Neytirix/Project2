@@ -20,13 +20,25 @@ public class WordCount {
 		return DataCounterArray;
 	}
 	
-    private static void countWords(String file) { //, String[] argsArray) {
-    	/*if (argsArray.length == 1) {
-    		DataCounter<String> counter = new BinarySearchTree<String>(new StringComparator());
-    	} else if (argsArray.length == 3) {
-    		if(argsArray[0].equals("-b")) 
-    	} */ 
+    private static void countWords(String[] argsArray) {
     	DataCounter<String> counter = new BinarySearchTree<String>(new StringComparator());
+		String file = argsArray[0];
+		if (argsArray.length == 3) {
+		    file = argsArray[2];
+			if(argsArray[0].equals("-b")) {
+				counter = new BinarySearchTree<String>(new StringComparator());
+			} else if (argsArray[0].equals("-a")) {
+				counter = new AVLTree<String>(new StringComparator());
+			} else if (argsArray[0].equals("-m")) {
+				counter = new MoveToFrontList<String>(new StringComparator());
+			} else {
+				System.out.println("incorrect argument");
+				System.exit(1);
+			}
+    	} else if (argsArray.length != 1) {
+    		System.out.println("incorrect number of arguments");
+    		System.exit(1);
+    	}
         try {
             FileWordReader reader = new FileWordReader(file);
             String word = reader.nextWord();
@@ -40,10 +52,18 @@ public class WordCount {
         }
 
         DataCount<String>[] counts = getCountsArray(counter);
-        insertionSort(counts, new DataCountStringComparator());
+        if (argsArray.length == 1 || argsArray[1].equals("-is")) {
+           	insertionSort(counts, new DataCountStringComparator());
+        } else if (argsArray[1].equals("-hs")) {
+        	heapSort(counts, new DataCountStringComparator());
+        } else {
+        	System.out.println("incorrect number of arguments");
+        	System.exit(1);
+        }
         for (DataCount<String> c : counts)
             System.out.println(c.count + " \t" + c.data);
     }
+    
     
     /**
      * Sort the count array in descending order of count. If two elements have
@@ -80,8 +100,6 @@ public class WordCount {
     }
     
     public static void main(String[] args) {
-        if (args.length == 1) {
-        	countWords(args[0]);
-        }
+    	countWords(args);
     }
 }
