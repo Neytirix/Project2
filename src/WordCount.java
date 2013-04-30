@@ -20,9 +20,13 @@ public class WordCount {
 		return DataCounterArray;
 	}
 	
-    private static void countWords(String file) {
-        DataCounter<String> counter = new BinarySearchTree<String>(new StringComparator());
-        
+    private static void countWords(String file) { //, String[] argsArray) {
+    	/*if (argsArray.length == 1) {
+    		DataCounter<String> counter = new BinarySearchTree<String>(new StringComparator());
+    	} else if (argsArray.length == 3) {
+    		if(argsArray[0].equals("-b")) 
+    	} */ 
+    	DataCounter<String> counter = new BinarySearchTree<String>(new StringComparator());
         try {
             FileWordReader reader = new FileWordReader(file);
             String word = reader.nextWord();
@@ -76,10 +80,8 @@ public class WordCount {
     }
     
     public static void main(String[] args) {
-        if (args.length != 1) {
-            System.err.println("Usage: filename of document to analyze");
-            System.exit(1);
+        if (args.length == 1) {
+        	countWords(args[0]);
         }
-        countWords(args[0]);
     }
 }
