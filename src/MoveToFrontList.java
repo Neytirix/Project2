@@ -19,6 +19,7 @@ public class MoveToFrontList<E> implements DataCounter<E> {
 			size++;
 		} else if(comparator.compare(current.data, data) == 0) { //case 2: the first node is the value passed --> increments its count by 1
 			current.count += 1;	
+			dataExists = true;
 		} else { //case 3: searches entire list for value passed
 			while(current != null && current.next != null) {
 				if(comparator.compare(current.next.data, data) == 0) {
