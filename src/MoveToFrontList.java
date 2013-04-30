@@ -17,6 +17,7 @@ public class MoveToFrontList<E> implements DataCounter<E> {
 		if(front == null) { //case 1: linked list is empty, sets front node equal to value passed with a count of 1
 			front = new LinkedNode(data, 1);
 			size++;
+			dataExists = true;
 		} else if(comparator.compare(current.data, data) == 0) { //case 2: the first node is the value passed --> increments its count by 1
 			current.count += 1;	
 			dataExists = true;
