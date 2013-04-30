@@ -10,7 +10,7 @@ public class WordCount {
 	//      you might do a non-generic version first and then adjust it)
 	// return an array of DataCount objects containing each unique word 
 	public static <E> DataCount<E>[] getCountsArray(DataCounter<E> counter) {
-		DataCount<E>[] DataCounterArray = (DataCount<E>[]) new Object[counter.getSize()];
+		DataCount<E>[] DataCounterArray = (DataCount<E>[]) new DataCount[counter.getSize()];
 		SimpleIterator<DataCount<E>> iterator = counter.getIterator();
 		int i = 0;
 		while(iterator.hasNext()) {
@@ -63,6 +63,16 @@ public class WordCount {
             }
             array[j + 1] = x;
         }
+    }
+    
+    public static <E> void heapSort(E[] array, Comparator<E> comparator) {
+    	PriorityQueue<E> heap = new FourHeap<E>(comparator);
+       	for (int i = 0; i < array.length; i++) {
+       		heap.insert(array[i]);
+       	}
+       	for (int i = 0; i < array.length; i++) {
+       		array[i] = heap.deleteMin();
+       	}
     }
     
     public static void main(String[] args) {

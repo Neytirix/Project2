@@ -75,7 +75,7 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 	}*/
 
 	
-	public class AVLNode extends BSTNode {
+	private class AVLNode extends BSTNode {
 
 		public int height;
 		
