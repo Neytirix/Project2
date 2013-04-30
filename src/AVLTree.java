@@ -52,9 +52,6 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 		AVLNode right = (AVLNode) root.right;
 		left.height = calculateHeight(left);
 		right.height = calculateHeight(right);
-		if(Math.abs(left.height-right.height) > 1) {
-			//rotate
-		}
 		return 1 + Math.max(left.height,right.height);
 	}
 	

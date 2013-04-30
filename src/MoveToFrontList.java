@@ -48,8 +48,6 @@ public class MoveToFrontList<E> implements DataCounter<E> {
 
 	@Override
 	public int getCount(E data) {
-		//too similar to incCount?
-		//what if there is a case where linked list is empty?
 		LinkedNode current = front;
 		int count = 0;
 		if (comparator.compare(current.data, data) == 0) {
