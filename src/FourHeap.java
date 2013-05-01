@@ -14,7 +14,12 @@ public class FourHeap<E> implements PriorityQueue<E>{
 	private int size; 
 	
 	/**
+<<<<<<< HEAD
 	 * Given a Comparator c, constructs a FourHeap object
+=======
+	 * Creates an empty FourHeap.
+	 * Takes a Comparator as an argument.
+>>>>>>> Added comments to FourHeap (double check please?)
 	 */
 	public FourHeap(Comparator<? super E> c) {
 		comparator = c;
@@ -23,7 +28,12 @@ public class FourHeap<E> implements PriorityQueue<E>{
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * Given an item of type E, adds it to the four heap in the proper location
+=======
+	 * Takes and inserts an element into the FourHeap.
+	 * Increases size of FourHeap.
+>>>>>>> Added comments to FourHeap (double check please?)
 	 */
 	@Override
 	public void insert(E item) {
@@ -36,8 +46,14 @@ public class FourHeap<E> implements PriorityQueue<E>{
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Finds and returns the minimum value in the four heap. Throws
 	 * NoSuchElementException is findMin is called on an empty heap.
+=======
+	 * Returns the minimum value in the FourHeap.
+	 * Throws NoSuchElementException if FourHeap is empty.
+	 * Does not modify the FourHeap.
+>>>>>>> Added comments to FourHeap (double check please?)
 	 */
 	@Override
 	public E findMin() {
@@ -48,9 +64,16 @@ public class FourHeap<E> implements PriorityQueue<E>{
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Deletes and returns the minimum value in the four heap, repairs the
 	 * hole by replacing it with the new minimum value. Throws 
 	 * NoSuchElementException if deleteMin is called on an empty heap.
+=======
+	 * Returns the minimum value in the FourHeap.
+	 * Throws NoSuchElementException if FourHeap is empty.
+	 * Modifies FourHeap by deleting the value.
+	 * Decreases Size of FourHeap.
+>>>>>>> Added comments to FourHeap (double check please?)
 	 */
 	@Override
 	public E deleteMin() {
@@ -65,7 +88,12 @@ public class FourHeap<E> implements PriorityQueue<E>{
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns true if the the four heap is empty, otherwise returns false.
+=======
+	 * Returns a boolean on whether or not the FourHeap
+	 * is currently empty.
+>>>>>>> Added comments to FourHeap (double check please?)
 	 */
 	@Override
 	public boolean isEmpty() {
@@ -73,9 +101,16 @@ public class FourHeap<E> implements PriorityQueue<E>{
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Doubles the length of the generic array passed and copies over all 
 	 * existing elements into the new array, preserving the order. Returns
 	 * the new generic array. 
+=======
+	 * Private method that assists in doubling the size of the
+	 * structures that represent the FourHeap.
+	 * Takes the original array and returns a doubled array
+	 * with the same elements.
+>>>>>>> Added comments to FourHeap (double check please?)
 	 */
 	private E[] doubleArray(E[] original) {
 		E[] newArray = (E[])new Object[original.length * 2];
@@ -86,8 +121,15 @@ public class FourHeap<E> implements PriorityQueue<E>{
 	} 
 	
 	/**
+<<<<<<< HEAD
 	 * Given an int index in the heap, percolates the element up into its 
 	 * proper location, preserving the heap order property.
+=======
+	 * Private method that moves an element up the FourHeap
+	 * if it is less that the value of its parent.
+	 * Modifies FourHeap structure.
+	 * Takes an index to be filled by percolating.
+>>>>>>> Added comments to FourHeap (double check please?)
 	 */
 	private void percolateUp(int index) {
 		boolean done = false;
@@ -103,10 +145,19 @@ public class FourHeap<E> implements PriorityQueue<E>{
 			}
 		}
 	}
+<<<<<<< HEAD
 	
 	/**
 	 *Given an int index in the heap, percolates the element down into its 
 	 * proper location, preserving the heap order property.
+=======
+
+	/**
+	 * Private method that moves an element down the FourHeap
+	 * if it is greater that the value of its parent.
+	 * Modifies FourHeap structure.
+	 * Takes an index to be filled by percolating.
+>>>>>>> Added comments to FourHeap (double check please?)
 	 */
 	private void percolateDown(int index) {
 		//children = (4*index) + 1, (4*index) +2, (4*index) +3, (4*index) +4
