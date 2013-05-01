@@ -31,6 +31,8 @@ public class WordCount {
 				counter = new AVLTree<String>(new StringComparator());
 			} else if (argsArray[0].equals("-m")) {
 				counter = new MoveToFrontList<String>(new StringComparator());
+			} else if (argsArray[0].equals("-h")) {
+				//PriorityQueue<String> counter= new FourHeap<String>(new StringComparator());
 			} else {
 				System.out.println("incorrect argument");
 				System.exit(1);
