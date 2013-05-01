@@ -1,3 +1,8 @@
+/* Name: Alexandra (Sasha) Babayan & Brian Park
+ * Date: 5/1/2013
+ * Project 2
+*/
+
 import java.io.IOException;
 
 /**
@@ -88,7 +93,16 @@ public class WordCount {
         }
     }
     
-    //should heapsort sort in descending or ascending order?
+    /**
+     * Sort the count array in descending order of count. If two elements have
+     * the same count, they should be ordered according to the comparator.
+     * 
+     * This code uses heap sort. The code is generic, but in this project
+     * we use it with DataCount<String> and DataCountStringComparator.
+     * 
+     * @param counts array to be sorted.
+	 * @param comparator for comparing elements.
+     */
     public static <E> void heapSort(E[] array, Comparator<E> comparator) {
     	PriorityQueue<E> heap = new FourHeap<E>(comparator);
        	for (int i = 0; i < array.length; i++) {

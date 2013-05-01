@@ -1,10 +1,15 @@
-// Sasha Babayan & Brian Park
-// 4/21/2013
-// Project 2
-
+/* Name: Alexandra (Sasha) Babayan & Brian Park
+ * Date: 5/1/2013
+ * Project 2
+*/
 
 public class StringComparator implements Comparator<String>{
 
+	/** Given two Strings, compares them lexicographically. Returns a 
+	 * negative number when the first string occurs first alphabetically,
+	 * returns a positive number when the second string occurs first 
+	 * alphabetically, returns zero when the two strings are equal. 
+	 */
 	@Override
 	public int compare(String e1, String e2) {
 		int length = Math.min(e1.length(), e2.length());

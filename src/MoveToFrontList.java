@@ -1,24 +1,42 @@
+/* Name: Alexandra (Sasha) Babayan & Brian Park
+ * Date: 5/1/2013
+ * Project 2
+*/
+
+/**
+ * 
+ */
 
 public class MoveToFrontList<E> implements DataCounter<E> {
 	private Comparator<? super E> comparator; 
 	private LinkedNode front;
-	private int size; 
+	private int size;  //current number of elements in the list
 	
+	/**
+	 * Given a Comparator c, constructs a MoveToFrontList object ??
+	 */
 	public MoveToFrontList(Comparator<? super E> c) {
 		comparator = c;
 		front = null;
 		size = 0;
 	}
 	
+	/**
+	 * Given a key of type E, increments that key's count in the list. 
+	 * Moves the passed element to the front of list after incrementing
+	 * its count.
+	 */
 	@Override
 	public void incCount(E data) {
 		boolean dataExists = false;
 		LinkedNode current = front;
-		if(front == null) { //case 1: linked list is empty, sets front node equal to value passed with a count of 1
+		if(front == null) { //case 1: linked list is empty, sets front node
+							//equal to value passed with a count of 1
 			front = new LinkedNode(data, 1);
 			size++;
 			dataExists = true;
-		} else if(comparator.compare(current.data, data) == 0) { //case 2: the first node is the value passed --> increments its count by 1
+		} else if(comparator.compare(current.data, data) == 0) { //case 2: the 
+											 // first node is the value passed 
 			current.count += 1;	
 			dataExists = true;
 		} else { //case 3: searches entire list for value passed
@@ -36,7 +54,7 @@ public class MoveToFrontList<E> implements DataCounter<E> {
 			}
 			
 		}
-		if (!dataExists) {
+		if (!dataExists) { //case 4: element is not in list, adds it to front
 			current = new LinkedNode(data, 1, front);
 			current.next = front;
 			front = current;
@@ -44,11 +62,19 @@ public class MoveToFrontList<E> implements DataCounter<E> {
 		}
 	}
 
+	/**
+	 * Returns an int of the current number of elements in the list
+	 */
 	@Override
 	public int getSize() {
 		return size;
 	}
 
+	/**
+	 * Given a key of type E, returns the corresponding int count for 
+	 * that key. Returns 0 if the element is not in the list. Moves
+	 * the passed element to the front of the list after accessing its count. 
+	 */
 	@Override
 	public int getCount(E data) {
 		LinkedNode current = front;
@@ -70,6 +96,9 @@ public class MoveToFrontList<E> implements DataCounter<E> {
 		return count;
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public SimpleIterator<DataCount<E>> getIterator() {
 		return new SimpleIterator<DataCount<E>>() {
@@ -95,7 +124,7 @@ public class MoveToFrontList<E> implements DataCounter<E> {
 	}
 	
 	
-	/*
+	/**
 	 * Helper class for linked list nodes storing generic types
 	 */
 	private class LinkedNode{
@@ -103,14 +132,19 @@ public class MoveToFrontList<E> implements DataCounter<E> {
 		private int count;
 		private LinkedNode next;
 		
+		/**
+		 * Creates a LinkedNode object with element d of type E and an 
+		 * int count
+		 */
 		public LinkedNode(E data, int count) {
 			this.data = data;
 			this.count = count;
 			this.next = null;
 		}
 		
-		/*
-		 * Creates a LinkedNode object with element d of type E and next
+		/**
+		 * Creates a LinkedNode object with element d of type E, an int count,
+		 * and a next node
 		 */
 	    public LinkedNode(E data, int count, LinkedNode next) {
 	        this.data = data;

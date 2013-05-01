@@ -1,3 +1,11 @@
+/* Name: Alexandra (Sasha) Babayan & Brian Park
+ * Date: 5/1/2013
+ * Project 2
+*/
+
+/**
+ * 
+ */
 import java.util.NoSuchElementException;
 
 public class FourHeap<E> implements PriorityQueue<E>{
@@ -5,13 +13,18 @@ public class FourHeap<E> implements PriorityQueue<E>{
 	private E[] arrayHeap;
 	private int size; 
 	
-	
+	/**
+	 * Given a Comparator c, constructs a FourHeap object
+	 */
 	public FourHeap(Comparator<? super E> c) {
 		comparator = c;
 		arrayHeap = (E[]) new Object[10];
 		size = 0;
 	}
 	
+	/**
+	 * Given an item of type E, adds it to the four heap in the proper location
+	 */
 	@Override
 	public void insert(E item) {
 		if (arrayHeap.length == size){
@@ -22,6 +35,10 @@ public class FourHeap<E> implements PriorityQueue<E>{
 		percolateUp(size-1);
 	}
 
+	/**
+	 * Finds and returns the minimum value in the four heap. Throws
+	 * NoSuchElementException is findMin is called on an empty heap.
+	 */
 	@Override
 	public E findMin() {
 		if (!isEmpty()) {
@@ -30,6 +47,11 @@ public class FourHeap<E> implements PriorityQueue<E>{
 		return arrayHeap[0]; 
 	}
 
+	/**
+	 * Deletes and returns the minimum value in the four heap, repairs the
+	 * hole by replacing it with the new minimum value. Throws 
+	 * NoSuchElementException if deleteMin is called on an empty heap.
+	 */
 	@Override
 	public E deleteMin() {
 		if (!isEmpty()) {
@@ -42,11 +64,19 @@ public class FourHeap<E> implements PriorityQueue<E>{
 		return min;
 	}
 
+	/**
+	 * Returns true if the the four heap is empty, otherwise returns false.
+	 */
 	@Override
 	public boolean isEmpty() {
 		return (size == 0);
 	}
 
+	/**
+	 * Doubles the length of the generic array passed and copies over all 
+	 * existing elements into the new array, preserving the order. Returns
+	 * the new generic array. 
+	 */
 	private E[] doubleArray(E[] original) {
 		E[] newArray = (E[])new Object[original.length * 2];
 		for(int i = 0; i < original.length; i++) {
@@ -55,6 +85,10 @@ public class FourHeap<E> implements PriorityQueue<E>{
 		return newArray;
 	} 
 	
+	/**
+	 * Given an int index in the heap, percolates the element up into its 
+	 * proper location, preserving the heap order property.
+	 */
 	private void percolateUp(int index) {
 		boolean done = false;
 		while(!done && index > 0){
@@ -70,6 +104,10 @@ public class FourHeap<E> implements PriorityQueue<E>{
 		}
 	}
 	
+	/**
+	 *Given an int index in the heap, percolates the element down into its 
+	 * proper location, preserving the heap order property.
+	 */
 	private void percolateDown(int index) {
 		//children = (4*index) + 1, (4*index) +2, (4*index) +3, (4*index) +4
 		boolean done = false;

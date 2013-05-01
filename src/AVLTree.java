@@ -1,3 +1,7 @@
+/* Name: Alexandra (Sasha) Babayan & Brian Park
+ * Date: 5/1/2013
+ * Project 2
+*/
 
 public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 
