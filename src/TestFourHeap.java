@@ -20,9 +20,9 @@ public class TestFourHeap {
 		});
 	}
 
-	@Test
-	public void test() {
-		fail("Not yet implemented");
+	@Test(timeout = TIMEOUT) 
+	public void sizeEmptyTest() {
+		assertEquals("Empty",0,heap.getSize());
 	}
-
+	
 }
