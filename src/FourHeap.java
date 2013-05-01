@@ -48,7 +48,7 @@ public class FourHeap<E> implements PriorityQueue<E>{
 	 */
 	@Override
 	public E findMin() {
-		if (!isEmpty()) {
+		if (isEmpty()) {
 			throw new NoSuchElementException();
 		}
 		return arrayHeap[0]; 
@@ -62,7 +62,7 @@ public class FourHeap<E> implements PriorityQueue<E>{
 	 */
 	@Override
 	public E deleteMin() {
-		if (!isEmpty()) {
+		if (isEmpty()) {
 			throw new NoSuchElementException();
 		}
 		E min = arrayHeap[0];
