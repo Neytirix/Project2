@@ -1,6 +1,6 @@
-/* Name: Alexandra (Sasha) Babayan
- * Section: AB
- * 4/10/2013
+/* Name: Alexandra (Sasha) Babayan & Brian Park
+ * Date: 5/1/2013
+ * Project 2
 */
 
 // Creates a stack for a generic type using an array
