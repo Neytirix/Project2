@@ -4,7 +4,10 @@
 */
 
 /**
- * 
+ * MoveToFrontList implements DataCounter using a linked list.
+ * The constructor takes a Comparator<? super E> "fuction object" 
+ * so that items of type E can be compared. Each node associates a 
+ * count with an E.
  */
 
 public class MoveToFrontList<E> implements DataCounter<E> {
@@ -13,7 +16,8 @@ public class MoveToFrontList<E> implements DataCounter<E> {
 	private int size;  //current number of elements in the list
 	
 	/**
-	 * Given a Comparator c, constructs a MoveToFrontList object ??
+	 * Given a Comparator c, constructs a MoveToFrontList object
+	 * Takes a Comparator as an argument.
 	 */
 	public MoveToFrontList(Comparator<? super E> c) {
 		comparator = c;
@@ -100,7 +104,8 @@ public class MoveToFrontList<E> implements DataCounter<E> {
 	}
 
 	/**
-	 * 
+	 * Returns a SimpleIterator of type DataCount<E>. Iterates
+	 * over the elements. 
 	 */
 	@Override
 	public SimpleIterator<DataCount<E>> getIterator() {

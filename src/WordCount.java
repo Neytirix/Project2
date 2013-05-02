@@ -11,8 +11,10 @@ import java.io.IOException;
  */
 public class WordCount {
 
-	// 
-	// return an array of DataCount objects containing each unique word 
+	/**
+	 * Takes a DataCounter object of type E, counter, and constructs 
+	 * and returns an array of DataCount objects containing each unique word.
+	 */
 	public static <E> DataCount<E>[] getCountsArray(DataCounter<E> counter) {
 		DataCount<E>[] DataCounterArray = (DataCount<E>[]) new DataCount[counter.getSize()];
 		SimpleIterator<DataCount<E>> iterator = counter.getIterator();
@@ -24,6 +26,12 @@ public class WordCount {
 		return DataCounterArray;
 	}
 	
+	/**
+	 * Given an array of command line arguments (data type, sort type, text file),
+	 * prints each unique word and its corresponding count in the text file in 
+	 * descending order. Prints error statements when an incorrect number of 
+	 * arguments is input or they are input in an incorrect order.
+	 */
     private static void countWords(String[] argsArray) {
     	DataCounter<String> counter = new BinarySearchTree<String>(new StringComparator());
 		String file = argsArray[0];

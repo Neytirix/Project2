@@ -3,13 +3,27 @@
  * Project 2
 */
 
+/**
+ * AVLTree implements the DataCounter interface and extends 
+ * BinarySearchTree. The constructor takes a Comparator<? super E> 
+ * "function object" so that items of type E can be compared.  
+ * Each tree node associates a count with an E.
+ */
 public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 
+	
+	/**
+	 * Given a Comparator c, constructs an AVLTree object
+	 * Takes a Comparator as an argument.
+	 */
 	public AVLTree(Comparator<? super E> c) {
 		super(c);
 	}
 	
-	@Override
+	/**
+	 * Given data of type E, increments its count in the AVLTree.
+	 */
+		@Override
 	public void incCount(E data) { 
 		if (overallRoot == null) {
 			overallRoot = new AVLNode(data);
@@ -19,6 +33,10 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 		}		
 	}
 	
+	/**
+	 * Given an AVLNode imbalanceNode, balances the subtree at that node
+	 * to preserve the structure property.
+	 */
 	private void balanceChildren(AVLNode imbalanceNode) {
 		int leftHeight;
 		int rightHeight;
@@ -70,6 +88,10 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 		}
 	}
 	
+	/**
+	 * Given data of type E and a BSTNode node, adds the node
+	 * in the proper location preserving the BST property.
+	 */
 	private int addNode(E data, BSTNode node) {
 		AVLNode currentNode = (AVLNode) node;
 		int lastHeight;
@@ -114,6 +136,10 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 		return lastHeight;
 	}
 
+	/**
+	 * Given a BSTNode current, performs a case 1 single rotation.
+	 * Returns a balanced subtree at the node passed.
+	 */
 	private AVLNode rotateLeftChild(BSTNode current) {
 		AVLNode imbalance =  (AVLNode) current;
 		AVLNode leftChild = (AVLNode) current.left;
@@ -123,7 +149,10 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 		return imbalance;
 	}
 	
-	
+	/**
+	 * Given a BSTNode current, performs a case 4 single rotation.
+	 * Returns a balanced subtree at the node passed.
+	 */
 	private AVLNode rotateRightChild(BSTNode current) {
 		AVLNode imbalance =  (AVLNode) current;
 		AVLNode rightChild = (AVLNode) current.right;
@@ -133,13 +162,20 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 		return imbalance;
 	}
 	
-	
+	/**
+	 * Given a BSTNode current, performs a case 2 double rotation.
+	 * Returns a balanced subtree at the node passed.
+	 */
 	private AVLNode doubleRotateLeft(BSTNode current){
 		AVLNode imbalance = (AVLNode) current;
 		imbalance.left = rotateRightChild(imbalance.left);
 		return rotateLeftChild(imbalance);
 	}
 	
+	/**
+	 * Given a BSTNode current, performs a case 3 double rotation.
+	 * Returns a balanced subtree at the node passed.
+	 */
 	private AVLNode doubleRotateRight(BSTNode current){
 		AVLNode imbalance = (AVLNode) current;
 		imbalance.right = rotateLeftChild(imbalance.right);
@@ -147,6 +183,11 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 	}
 	
 	
+	/**
+	 * Given a BSTNode root, calculates the height of the root.
+	 * Throws IllegalStateException if the height fields store
+	 * incorrect values or if the tree is unbalanced. 
+	 */
 	private int height(BSTNode root) {
 		AVLNode node = (AVLNode) root;		
 		if (node == null) 
@@ -162,14 +203,27 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 		return node.height;
 	}
 	
+	/**
+	 * Verifies the structure property of the AVL tree.
+	 * Throws IllegalStateException if the height fields store
+	 * incorrect values or if the tree is unbalanced. 
+	 */
 	public void verifyHeight() {
 		height(overallRoot);
 	}
 	
+	
+	/**
+	 * Helper class for AVL nodes storing generic types
+	 */
 	private class AVLNode extends BSTNode {
 
 		public int height;
 		
+		/**
+		 * Creates an AVLNode with element d of type E, setting count
+		 * equal to 1 and height equal to 0
+		 */
 		public AVLNode(E d) {
 			super(d);
 			height = 0;
