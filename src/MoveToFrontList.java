@@ -30,16 +30,18 @@ public class MoveToFrontList<E> implements DataCounter<E> {
 	public void incCount(E data) {
 		boolean dataExists = false;
 		LinkedNode current = front;
-		if(front == null) { //case 1: linked list is empty, sets front node
-							//equal to value passed with a count of 1
+		if(front == null) { 
+			//case 1: linked list is empty, sets front node equal to value passed 
+			//with a count of 1
 			front = new LinkedNode(data, 1);
 			size++;
 			dataExists = true;
-		} else if(comparator.compare(current.data, data) == 0) { //case 2: the 
-											 // first node is the value passed 
+		} else if(comparator.compare(current.data, data) == 0) { 
+			//case 2: the first node is the value passed 
 			current.count += 1;	
 			dataExists = true;
-		} else { //case 3: searches entire list for value passed
+		} else { 
+			//case 3: searches entire list for value passed
 			while(current != null && current.next != null) {
 				if(comparator.compare(current.next.data, data) == 0) {
 					current.next.count += 1;
@@ -54,7 +56,8 @@ public class MoveToFrontList<E> implements DataCounter<E> {
 			}
 			
 		}
-		if (!dataExists) { //case 4: element is not in list, adds it to front
+		if (!dataExists) { 
+			//case 4: element is not in list, adds it to front
 			current = new LinkedNode(data, 1, front);
 			current.next = front;
 			front = current;
