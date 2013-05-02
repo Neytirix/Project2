@@ -66,7 +66,7 @@ public class FourHeap<E> implements PriorityQueue<E>{
 			throw new NoSuchElementException();
 		}
 		E min = arrayHeap[0];
-		arrayHeap[0] = arrayHeap[size];
+		arrayHeap[0] = arrayHeap[size-1];
 		percolateDown(0);
 		size--;
 		return min;
