@@ -21,9 +21,11 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 		
 		if (overallRoot == null) {
 			overallRoot = new AVLNode(data);
+			((AVLNode) overallRoot).height = 0;
+		} else {
+			((AVLNode) overallRoot).height = addNode(data, overallRoot);
 		}
-		((AVLNode) overallRoot).height = addNode(data, overallRoot);
-		//AVLNode lastInsertedNode = find(data, overallRoot);
+			//AVLNode lastInsertedNode = find(data, overallRoot);
 		 //checkBalanced(overallRoot);
 		
 		
@@ -92,6 +94,7 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 			//traverse left (current is greater than value passed)
 			if (currentNode.left == null) {
 				currentNode.left = new AVLNode(data);
+				
 				((AVLNode) currentNode.left).height = 0;
 				return 0;
 			}

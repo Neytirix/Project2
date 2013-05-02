@@ -123,9 +123,6 @@ public class TestAVLTree {
 		return s;
 	}
 	
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
+
 
 }
