@@ -118,8 +118,8 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 		AVLNode imbalance =  (AVLNode) current;
 		AVLNode leftChild = (AVLNode) current.left;
 		leftChild.right = imbalance;
-		imbalance.height = 1 + Math.max(verifyHeight(imbalance.right), verifyHeight(imbalance.left));
-		leftChild.height = 1 + Math.max(verifyHeight(leftChild.right), verifyHeight(leftChild.left));
+		imbalance.height = 1 + Math.max(height(imbalance.right), height(imbalance.left));
+		leftChild.height = 1 + Math.max(height(leftChild.right), height(leftChild.left));
 		return imbalance;
 	}
 	
@@ -128,8 +128,8 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 		AVLNode imbalance =  (AVLNode) current;
 		AVLNode rightChild = (AVLNode) current.right;
 		rightChild.left = imbalance;
-		imbalance.height = 1 + Math.max(verifyHeight(imbalance.right), verifyHeight(imbalance.left));
-		rightChild.height = 1 + Math.max(verifyHeight(rightChild.right), verifyHeight(rightChild.left));
+		imbalance.height = 1 + Math.max(height(imbalance.right), height(imbalance.left));
+		rightChild.height = 1 + Math.max(height(rightChild.right), height(rightChild.left));
 		return imbalance;
 	}
 	
@@ -146,26 +146,13 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 		return rotateRightChild(imbalance);
 	}
 	
-	/*
+	
 	private int height(BSTNode root) {
-		AVLNode current = (AVLNode) root;
-		if (root == null) {
-			return -1;
-		}
-		AVLNode left = (AVLNode) root.left;
-		AVLNode right = (AVLNode) root.right;
-		left.height = height(left);
-		right.height = height(right);
-		return 1 + Math.max(left.height,right.height);
-	} */
-	
-	
-	public int verifyHeight(BSTNode root) {
 		AVLNode node = (AVLNode) root;		
 		if (node == null) 
 			return -1;
-		int leftHeight = verifyHeight((AVLNode) node.left);
-		int rightHeight = verifyHeight((AVLNode) node.right);
+		int leftHeight = height((AVLNode) node.left);
+		int rightHeight = height((AVLNode) node.right);
 		if (node.height != Math.max(leftHeight, rightHeight) + 1) {
 			throw new IllegalStateException("Height fields are incorrect");
 		}
@@ -173,6 +160,10 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 			throw new IllegalStateException("Tree is unbalanced");
 		}
 		return node.height;
+	}
+	
+	public void verifyHeight() {
+		height(overallRoot);
 	}
 	
 	private class AVLNode extends BSTNode {
