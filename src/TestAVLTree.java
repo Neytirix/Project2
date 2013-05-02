@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class TestAVLTree {
 	private static final int TIMEOUT = 2000;
-	AVLTree tree;
+	AVLTree<Integer> tree;
 	@Before
 	public void setUp() throws Exception {
 		tree = new AVLTree<Integer>(new Comparator<Integer>() {
@@ -123,6 +123,38 @@ public class TestAVLTree {
 		return s;
 	}
 	
+	private void add(int[] nums){
+		for(int i = 0; i < nums.length; i++)
+			tree.incCount(nums[i]);
+	}
+	
+	@Test(timeout = TIMEOUT)
+	public void heightNoInsertTest() {
+		add(new int[]{});
+		tree.verifyHeight();
+	}
+	
+	@Test(timeout = TIMEOUT)
+	public void height7InsertsOf9Test() {
+		add(new int[]{9, 9, 9, 9, 9, 9, 9});
+		tree.verifyHeight();
+	}
+	@Test(timeout = TIMEOUT)
+	public void height2InsertTest() {
+		add(new int[]{2,4});
+		tree.verifyHeight();
+	}
+	
+	@Test(timeout = TIMEOUT)
+	public void height2InsertTest2() {
+		add(new int[]{4, 2});
+		tree.verifyHeight();
+	}
 
+	@Test(timeout = TIMEOUT)
+	public void height7InsertTest() {
+		add(new int[]{4, 2, 1, 3, 6, 8, 9});
+		tree.verifyHeight();
+	}
 
 }

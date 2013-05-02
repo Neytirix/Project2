@@ -116,6 +116,7 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 			}
 			lastHeight = addNode(data, currentNode.right);
 		}
+		currentNode.height = lastHeight+1;
 		int leftHeight;
 		int rightHeight;
 		if(currentNode.right == null) {
@@ -132,8 +133,10 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 			balanceChildren(currentNode);
 			
 		}
-		currentNode.height = lastHeight + 1;
-		return lastHeight;
+
+		
+//		currentNode.height = height(currentNode);
+		return currentNode.height;
 	}
 
 	/**
@@ -144,8 +147,8 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 		AVLNode imbalance =  (AVLNode) current;
 		AVLNode leftChild = (AVLNode) current.left;
 		leftChild.right = imbalance;
-		imbalance.height = 1 + Math.max(height(imbalance.right), height(imbalance.left));
 		leftChild.height = 1 + Math.max(height(leftChild.right), height(leftChild.left));
+		imbalance.height = 1 + Math.max(height(imbalance.right), height(imbalance.left));
 		return imbalance;
 	}
 	
@@ -157,8 +160,8 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 		AVLNode imbalance =  (AVLNode) current;
 		AVLNode rightChild = (AVLNode) current.right;
 		rightChild.left = imbalance;
-		imbalance.height = 1 + Math.max(height(imbalance.right), height(imbalance.left));
 		rightChild.height = 1 + Math.max(height(rightChild.right), height(rightChild.left));
+		imbalance.height = 1 + Math.max(height(imbalance.right), height(imbalance.left));
 		return imbalance;
 	}
 	
