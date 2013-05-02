@@ -76,6 +76,20 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 	}*/
 
 	
+	public int verifyHeight(AVLNode node) {
+		if (node == null) 
+			return -1;
+		int leftHeight = verifyHeight((AVLNode) node.left);
+		int rightHeight = verifyHeight((AVLNode) node.right);
+		if (node.height != Math.max(leftHeight, rightHeight) + 1) {
+			throw new IllegalStateException("Height fields are incorrect");
+		}
+		if (Math.abs(leftHeight - rightHeight) > 1) {
+			throw new IllegalStateException("Tree is unbalanced");
+		}
+		return node.height;
+	}
+	
 	private class AVLNode extends BSTNode {
 
 		public int height;
