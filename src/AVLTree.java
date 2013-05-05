@@ -72,7 +72,7 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 			if(imbalanceNode.right.left == null) {
 				rightHeight = 0;
 			} else {
-				rightHeight = ((AVLNode) imbalanceNode.right.left).height;
+				rightHeight = ((AVLNode) imbalanceNode.right.right).height;
 			}
 			if(imbalanceNode.right.left == null) {
 				leftHeight = 0;
