@@ -10,10 +10,10 @@ import org.junit.Test;
 
 public class TestAVLTree {
 	private static final int TIMEOUT = 2000;
-	AVLTree<Integer> tree;
+	AVLTree2<Integer> tree;
 	@Before
 	public void setUp() throws Exception {
-		tree = new AVLTree<Integer>(new Comparator<Integer>() {
+		tree = new AVLTree2<Integer>(new Comparator<Integer>() {
 			public int compare(Integer e1, Integer e2) {
 				return e1 - e2;
 			};
