@@ -11,188 +11,94 @@
  */
 public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 
-	
-	/**
-	 * Given a Comparator c, constructs an AVLTree object
-	 * Takes a Comparator as an argument.
-	 */
 	public AVLTree(Comparator<? super E> c) {
 		super(c);
 	}
-	
-	/**
-	 * Given data of type E, increments its count in the AVLTree.
-	 */
-		@Override
-	public void incCount(E data) { 
-		if (overallRoot == null) {
-			overallRoot = new AVLNode(data);
-			((AVLNode) overallRoot).height = 0;
-		} else {
-			((AVLNode) overallRoot).height = addNode(data, overallRoot);
-		}		
+
+	public void incCount(E data) {
+		overallRoot = addNode(data, overallRoot);
 	}
 	
-	/**
-	 * Given an AVLNode imbalanceNode, balances the subtree at that node
-	 * to preserve the structure property.
-	 */
-	private void balanceChildren(AVLNode imbalanceNode) {
-		int leftHeight;
-		int rightHeight;
-		if(imbalanceNode.right == null) {
-			rightHeight = 0;
-		} else {
-			rightHeight = ((AVLNode) imbalanceNode.right).height;
-		}
-		if(imbalanceNode.left == null) {
-			leftHeight = 0;
-		} else {
-			leftHeight = ((AVLNode) imbalanceNode.left).height;
-		}
-		if(leftHeight - rightHeight > 1) {
-			if(imbalanceNode.left.right == null) {
-				rightHeight = 0;
-			} else {
-				rightHeight = ((AVLNode) imbalanceNode.left.right).height;
-			}
-			if(imbalanceNode.left.left == null) {
-				leftHeight = 0;
-			} else {
-				leftHeight = ((AVLNode) imbalanceNode.left.left).height;
-			}
-			if((leftHeight > rightHeight) ) {
-				rotateLeftChild(imbalanceNode);
-			} 
-			if((rightHeight > leftHeight) ) {
-				doubleRotateLeft(imbalanceNode);
-			}
-		} 
-		if((rightHeight - leftHeight) > 1) {
-			if(imbalanceNode.right.left == null) {
-				rightHeight = 0;
-			} else {
-				rightHeight = ((AVLNode) imbalanceNode.right.right).height;
-			}
-			if(imbalanceNode.right.left == null) {
-				leftHeight = 0;
-			} else {
-				leftHeight = ((AVLNode) imbalanceNode.right.left).height;
-			}
-			if((leftHeight> rightHeight)) {
-				doubleRotateRight(imbalanceNode);
-			} 
-			if((rightHeight >leftHeight)) {
-				rotateRightChild(imbalanceNode);
-			}
-		}
-	}
 	
-	/**
-	 * Given data of type E and a BSTNode node, adds the node
-	 * in the proper location preserving the BST property.
-	 */
-	private int addNode(E data, BSTNode node) {
+	public AVLNode addNode(E data, BSTNode node) {
 		AVLNode currentNode = (AVLNode) node;
-		int lastHeight;
-		if (comparator.compare(data, currentNode.data) == 0) {
+		if (currentNode == null) {
+			currentNode = new AVLNode(data);
+			return currentNode;
+		} else if (comparator.compare(data, currentNode.data) == 0) {
 			currentNode.count++;
-			return 0;
 		} else if (comparator.compare(data, currentNode.data) < 0) {
 			//traverse left (current is greater than value passed)
-			if (currentNode.left == null) {
-				currentNode.left = new AVLNode(data);
-				
-				((AVLNode) currentNode.left).height = 0;
-				return 0;
-			}
-			lastHeight = addNode(data, currentNode.left);
+			currentNode.left = addNode(data, currentNode.left);
 		} else {
 			//traverse right (current is less than value passed)
-			if (currentNode.right == null) {
-				currentNode.right = new AVLNode(data);
-				((AVLNode) currentNode.right).height = 0;
-				return 0;
-			}
-			lastHeight = addNode(data, currentNode.right);
+			currentNode.right = addNode(data, currentNode.right);
 		}
-		currentNode.height = lastHeight+1;
-		int leftHeight;
-		int rightHeight;
-		if(currentNode.right == null) {
-			rightHeight = 0;
-		} else {
-			rightHeight = ((AVLNode) currentNode.right).height;
-		}
-		if(currentNode.left == null) {
-			leftHeight = 0;
-		} else {
-			leftHeight = ((AVLNode) currentNode.left).height;
-		}
-		while(Math.abs(leftHeight - rightHeight) > 1) {
-			balanceChildren(currentNode);
-			if(currentNode.right == null) {
-				rightHeight = 0;
-			} else {
-				rightHeight = ((AVLNode) currentNode.right).height;
-			}
-			if(currentNode.left == null) {
-				leftHeight = 0;
-			} else {
-				leftHeight = ((AVLNode) currentNode.left).height;
-			}
-			
-		}
-
-		
-//		currentNode.height = height(currentNode);
-		return currentNode.height;
+		return balance(currentNode);
 	}
-
+	
+	public AVLNode balance(AVLNode node) {
+		if(node == null) {
+			return node;
+		}
+		if (height(node.left) - height(node.right) > 1) {
+			if(height(node.left.left) >= height(node.left.right)) {
+				node = rotateLeftChild(node);
+			} else {
+				node = doubleRotateLeft(node);
+			}			
+		} else if (height(node.right) - height(node.left) > 1){
+			if(height(node.right.right) >= height(node.right.left)) {
+				node = rotateRightChild(node);
+			} else {
+				node = doubleRotateRight(node);
+			}
+		}
+		node.height = Math.max(height(node.left), height(node.right)) + 1;
+		return node;
+	}
+	
+	public int height(BSTNode node) {
+		if(node == null) {
+			return -1;
+		}
+		return ((AVLNode)node).height;
+	}
+	
+	
 	/**
 	 * Given a BSTNode current, performs a case 1 single rotation.
 	 * Returns a balanced subtree at the node passed.
 	 */
-	private AVLNode rotateLeftChild(BSTNode current) {
-
-		System.out.println("this code is called");
-		AVLNode imbalance =  (AVLNode) current;
-		/*current = current.left;
-		temp.left = current.right;
-		current.right = temp;
-		return (AVLNode) current; */
-		
-		
-		AVLNode leftChild = (AVLNode) imbalance.left;
-		imbalance.left = leftChild.right;
-		leftChild.right = imbalance;
-		leftChild.height = 1 + Math.max(height(leftChild.right), height(leftChild.left));
-		imbalance.height = 1 + Math.max(height(imbalance.right), height(imbalance.left));
-		return imbalance; 
+	private AVLNode rotateLeftChild(AVLNode current) {
+		AVLNode temp = (AVLNode) current.left;
+		current.left = temp.right;
+		temp.right = current;
+		current.height = 1 + Math.max(height(current.left), height(current.right));
+		temp.height = 1 + Math.max(height(temp.left), current.height);
+		return temp;
 	}
 	
 	/**
 	 * Given a BSTNode current, performs a case 4 single rotation.
 	 * Returns a balanced subtree at the node passed.
 	 */
-	private AVLNode rotateRightChild(BSTNode current) {
-		AVLNode imbalance =  (AVLNode) current;
-		AVLNode rightChild = (AVLNode) current.right;
-		imbalance.right = rightChild.left;
-		rightChild.left = imbalance;
-		rightChild.height = 1 + Math.max(height(rightChild.right), height(rightChild.left));
-		imbalance.height = 1 + Math.max(height(imbalance.right), height(imbalance.left));
-		return imbalance;
+	private AVLNode rotateRightChild(AVLNode current) {
+		AVLNode temp = (AVLNode) current.right;
+		current.right = temp.left;
+		temp.left = current;
+		current.height = 1 + Math.max(height(current.right), height(current.left));
+		temp.height = 1 + Math.max(height(temp.right), current.height);
+		return temp;
 	}
 	
 	/**
 	 * Given a BSTNode current, performs a case 2 double rotation.
 	 * Returns a balanced subtree at the node passed.
 	 */
-	private AVLNode doubleRotateLeft(BSTNode current){
-		AVLNode imbalance = (AVLNode) current;
-		imbalance.left = rotateRightChild(imbalance.left);
-		return rotateLeftChild(imbalance);
+	private AVLNode doubleRotateLeft(AVLNode current){
+		current.left = rotateRightChild((AVLNode) current.left);
+		return rotateLeftChild(current);
 	}
 	
 	/**
@@ -200,10 +106,11 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 	 * Returns a balanced subtree at the node passed.
 	 */
 	private AVLNode doubleRotateRight(BSTNode current){
-		AVLNode imbalance = (AVLNode) current;
-		imbalance.right = rotateLeftChild(imbalance.right);
-		return rotateRightChild(imbalance);
+		current.right = rotateLeftChild((AVLNode) current.right);
+		return rotateRightChild((AVLNode) current);
 	}
+	
+		
 	
 	
 	/**
@@ -211,12 +118,12 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 	 * Throws IllegalStateException if the height fields store
 	 * incorrect values or if the tree is unbalanced. 
 	 */
-	private int height(BSTNode root) {
+	private int calcHeight(BSTNode root) {
 		AVLNode node = (AVLNode) root;		
 		if (node == null) 
 			return -1;
-		int leftHeight = height((AVLNode) node.left);
-		int rightHeight = height((AVLNode) node.right);
+		int leftHeight = calcHeight((AVLNode) node.left);
+		int rightHeight = calcHeight((AVLNode) node.right);
 		if (node.height != Math.max(leftHeight, rightHeight) + 1) {
 			throw new IllegalStateException("Height fields are incorrect");
 		}
@@ -232,8 +139,10 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 	 * incorrect values or if the tree is unbalanced. 
 	 */
 	public void verifyHeight() {
-		height(overallRoot);
+		calcHeight(overallRoot);
 	}
+	
+	
 	
 	
 	/**
@@ -252,5 +161,4 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 			height = 0;
 		}	
 	}
-
 }
