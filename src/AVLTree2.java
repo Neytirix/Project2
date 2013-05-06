@@ -1,4 +1,3 @@
-
 public class AVLTree2<E> extends BinarySearchTree<E> implements DataCounter<E> {
 
 	public AVLTree2(Comparator<? super E> c) {
@@ -6,8 +5,12 @@ public class AVLTree2<E> extends BinarySearchTree<E> implements DataCounter<E> {
 	}
 
 	public void incCount(E data) {
+<<<<<<< HEAD
 
 			overallRoot = addNode(data, overallRoot);
+=======
+		overallRoot = addNode(data, overallRoot);
+>>>>>>> 37648874a2cf0f5b459f6958c3ec51080b085286
 	}
 	
 	
@@ -20,10 +23,16 @@ public class AVLTree2<E> extends BinarySearchTree<E> implements DataCounter<E> {
 		} else if (comparator.compare(data, currentNode.data) < 0) {
 			//traverse left (current is greater than value passed)
 			currentNode.left = addNode(data, currentNode.left);
+<<<<<<< HEAD
 			
 		} else {
 			//traverse right (current is less than value passed)
 			currentNode.right =  addNode(data, currentNode.right);
+=======
+		} else {
+			//traverse right (current is less than value passed)
+			currentNode.right = addNode(data, currentNode.right);
+>>>>>>> 37648874a2cf0f5b459f6958c3ec51080b085286
 		}
 		return balance(currentNode);
 	}
@@ -57,6 +66,7 @@ public class AVLTree2<E> extends BinarySearchTree<E> implements DataCounter<E> {
 	}
 	
 	
+<<<<<<< HEAD
 	private int verifyHeightHelper(BSTNode root) {
 	AVLNode node = (AVLNode) root;		
 	if (node == null) 
@@ -101,40 +111,41 @@ public void verifyHeight() {
 	
 	
 	
+=======
+>>>>>>> 37648874a2cf0f5b459f6958c3ec51080b085286
 	/**
 	 * Given a BSTNode current, performs a case 1 single rotation.
 	 * Returns a balanced subtree at the node passed.
 	 */
-	private AVLNode rotateLeftChild(BSTNode current) {
-		AVLNode imbalance =  (AVLNode) current;
-		AVLNode leftChild = (AVLNode) current.left;
-		leftChild.right = imbalance;
-		imbalance.height = 1 + Math.max(height(imbalance.right), height(imbalance.left));
-		leftChild.height = 1 + Math.max(height(leftChild.right), height(leftChild.left));
-		return imbalance;
+	private AVLNode rotateLeftChild(AVLNode current) {
+		AVLNode temp = (AVLNode) current.left;
+		current.left = temp.right;
+		temp.right = current;
+		current.height = 1 + Math.max(height(current.left), height(current.right));
+		temp.height = 1 + Math.max(height(temp.left), current.height);
+		return temp;
 	}
 	
 	/**
 	 * Given a BSTNode current, performs a case 4 single rotation.
 	 * Returns a balanced subtree at the node passed.
 	 */
-	private AVLNode rotateRightChild(BSTNode current) {
-		AVLNode imbalance =  (AVLNode) current;
-		AVLNode rightChild = (AVLNode) current.right;
-		rightChild.left = imbalance;
-		imbalance.height = 1 + Math.max(height(imbalance.right), height(imbalance.left));
-		rightChild.height = 1 + Math.max(height(rightChild.right), height(rightChild.left));
-		return imbalance;
+	private AVLNode rotateRightChild(AVLNode current) {
+		AVLNode temp = (AVLNode) current.right;
+		current.right = temp.left;
+		temp.left = current;
+		current.height = 1 + Math.max(height(current.right), height(current.left));
+		temp.height = 1 + Math.max(height(temp.right), current.height);
+		return temp;
 	}
 	
 	/**
 	 * Given a BSTNode current, performs a case 2 double rotation.
 	 * Returns a balanced subtree at the node passed.
 	 */
-	private AVLNode doubleRotateLeft(BSTNode current){
-		AVLNode imbalance = (AVLNode) current;
-		imbalance.left = rotateRightChild(imbalance.left);
-		return rotateLeftChild(imbalance);
+	private AVLNode doubleRotateLeft(AVLNode current){
+		current.left = rotateRightChild((AVLNode) current.left);
+		return rotateLeftChild(current);
 	}
 	
 	/**
@@ -142,16 +153,41 @@ public void verifyHeight() {
 	 * Returns a balanced subtree at the node passed.
 	 */
 	private AVLNode doubleRotateRight(BSTNode current){
-		AVLNode imbalance = (AVLNode) current;
-		imbalance.right = rotateLeftChild(imbalance.right);
-		return rotateRightChild(imbalance);
+		current.right = rotateLeftChild((AVLNode) current.right);
+		return rotateRightChild((AVLNode) current);
 	}
 	
+		
 	
 	
+	/**
+	 * Given a BSTNode root, calculates the height of the root.
+	 * Throws IllegalStateException if the height fields store
+	 * incorrect values or if the tree is unbalanced. 
+	 */
+	private int calcHeight(BSTNode root) {
+		AVLNode node = (AVLNode) root;		
+		if (node == null) 
+			return -1;
+		int leftHeight = calcHeight((AVLNode) node.left);
+		int rightHeight = calcHeight((AVLNode) node.right);
+		if (node.height != Math.max(leftHeight, rightHeight) + 1) {
+			throw new IllegalStateException("Height fields are incorrect");
+		}
+		if (Math.abs(leftHeight - rightHeight) > 1) {
+			throw new IllegalStateException("Tree is unbalanced");
+		}
+		return node.height;
+	}
 	
-	
-	
+	/**
+	 * Verifies the structure property of the AVL tree.
+	 * Throws IllegalStateException if the height fields store
+	 * incorrect values or if the tree is unbalanced. 
+	 */
+	public void verifyHeight() {
+		calcHeight(overallRoot);
+	}
 	
 	
 	

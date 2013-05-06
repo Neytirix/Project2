@@ -40,7 +40,7 @@ public class WordCount {
 			if(argsArray[0].equals("-b")) {
 				counter = new BinarySearchTree<String>(new StringComparator());
 			} else if (argsArray[0].equals("-a")) {
-				counter = new AVLTree<String>(new StringComparator());
+				counter = new AVLTree2<String>(new StringComparator());
 			} else if (argsArray[0].equals("-m")) {
 				counter = new MoveToFrontList<String>(new StringComparator());
 			} else {
