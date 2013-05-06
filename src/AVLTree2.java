@@ -6,7 +6,8 @@ public class AVLTree2<E> extends BinarySearchTree<E> implements DataCounter<E> {
 	}
 
 	public void incCount(E data) {
-		addNode(data, overallRoot);
+
+			overallRoot = addNode(data, overallRoot);
 	}
 	
 	
@@ -14,15 +15,15 @@ public class AVLTree2<E> extends BinarySearchTree<E> implements DataCounter<E> {
 		AVLNode currentNode = (AVLNode) node;
 		if (currentNode == null) {
 			currentNode = new AVLNode(data);
-			return currentNode;
 		} else if (comparator.compare(data, currentNode.data) == 0) {
 			currentNode.count++;
 		} else if (comparator.compare(data, currentNode.data) < 0) {
 			//traverse left (current is greater than value passed)
-			return addNode(data, currentNode.left);
+			currentNode.left = addNode(data, currentNode.left);
+			
 		} else {
 			//traverse right (current is less than value passed)
-			return addNode(data, currentNode.right);
+			currentNode.right =  addNode(data, currentNode.right);
 		}
 		return balance(currentNode);
 	}
@@ -33,15 +34,15 @@ public class AVLTree2<E> extends BinarySearchTree<E> implements DataCounter<E> {
 		}
 		if (height(node.left) - height(node.right) > 1) {
 			if(height(node.left.left) >= height(node.left.right)) {
-				rotateLeftChild(node);
+				node = rotateLeftChild(node);
 			} else {
-				doubleRotateLeft(node);
+				node = doubleRotateLeft(node);
 			}			
 		} else if (height(node.right) - height(node.left) > 1){
-			if(height(node.right) - height(node.left) > 1) {
-				rotateRightChild(node);
+			if(height(node.right.right) >= height(node.right.left)) {
+				node = rotateRightChild(node);
 			} else {
-				doubleRotateRight(node);
+				node = doubleRotateRight(node);
 			}
 		}
 		node.height = Math.max(height(node.left), height(node.right)) + 1;
@@ -56,7 +57,33 @@ public class AVLTree2<E> extends BinarySearchTree<E> implements DataCounter<E> {
 	}
 	
 	
-	
+	private int verifyHeightHelper(BSTNode root) {
+	AVLNode node = (AVLNode) root;		
+	if (node == null) 
+		return -1;
+	int leftHeight = height((AVLNode) node.left);
+	int rightHeight = height((AVLNode) node.right);
+	if (node.height != Math.max(leftHeight, rightHeight) + 1) {
+		throw new IllegalStateException("Height fields are incorrect");
+	}
+	if (Math.abs(leftHeight - rightHeight) > 1) {
+		throw new IllegalStateException("Tree is unbalanced");
+	}
+	return node.height;
+}
+
+/**
+ * Verifies the structure property of the AVL tree.
+ * Throws IllegalStateException if the height fields store
+ * incorrect values or if the tree is unbalanced. 
+ */
+public void verifyHeight() {
+	verifyHeightHelper(overallRoot);
+}
+
+
+
+
 	
 	
 	
