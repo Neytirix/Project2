@@ -43,6 +43,8 @@ public class WordCount {
 				counter = new AVLTree<String>(new StringComparator());
 			} else if (argsArray[0].equals("-m")) {
 				counter = new MoveToFrontList<String>(new StringComparator());
+			} else if (argsArray[0].equals("-h")) {
+				counter = new Hashtable<String>(new StringComparator(), new StringHasher()); 
 			} else {
 				System.out.println("incorrect argument");
 				System.exit(1);
@@ -68,6 +70,8 @@ public class WordCount {
            	insertionSort(counts, new DataCountStringComparator());
         } else if (argsArray[1].equals("-hs")) {
         	heapSort(counts, new DataCountStringComparator());
+        } else if (argsArray[1].equals("-os")) {
+        	//counts = quickSort(counts, new DataCountStringComparator());
         } else {
         	System.out.println("incorrect number of arguments");
         	System.exit(1);
@@ -120,6 +124,29 @@ public class WordCount {
        		array[i] = heap.deleteMin();
        	}
     }
+    
+    /**
+    public static <E> E[] quickSort(E[] array, Comparator<E> comparator) {
+    	if (array.length < 2) {
+    		return array;
+    	}
+    	E pivot = array[0];
+    	E[] smallerArray = (E[]) new Object[array.length];
+    	E[] pivotArray = (E[]) new Object[array.length];
+    	E[] largerArray = (E[]) new Object[array.length];
+    	for (int i = 0; i < array.length; i++) {
+    		if(comparator.compare(array[i],pivot) < 0) {
+    			smallerArray[i] = array[i];
+    		} else if (comparator.compare(array[i], pivot) > 0) {
+    			largerArray[i] = array[i];
+    		} else {
+    			 pivotArray[i] = array[i];
+    		}
+    	}
+    			
+		return quickSort(smallerArray, comparator) + quickSort(pivotArray, comparator) + ;
+    } */
+    
     
     public static void main(String[] args) {
     	countWords(args);
