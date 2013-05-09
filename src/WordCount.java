@@ -129,7 +129,7 @@ public class WordCount {
     
     
     private static <E> int partition(E[] array, int low, int hi, Comparator<E> comparator) {
-    	int left = low+1;
+    	int left = low;
     	int right = hi-1;
     	int pivIndex = (low+hi)/2;
     	E pivot = array[pivIndex];
@@ -140,14 +140,12 @@ public class WordCount {
     		if (comparator.compare(array[right],pivot) > 0) {
     			right--;
     		}
-    		else if (comparator.compare(array[left],pivot) < 0) {
+    		else if (comparator.compare(array[left],pivot) <= 0) {
     			left++;
     		} else {
     			E swap = array[left];
     			array[left] = array[right];
     			array[right] = swap;
-    			//left++;
-    			//right--;
     		}
     	}
     	array[low] = array[left];
@@ -160,12 +158,8 @@ public class WordCount {
     public static <E> void quickSort(E[] array, int low, int hi, Comparator<E> comparator) {
     	if(hi-low > 1) {
     		int pivot = partition(array, low, hi, comparator);
-	    	//if (low < pivot) {
-	    		quickSort(array, low, pivot, comparator);
-	    	//}
-	    	//if (hi > pivot+1) {
-	    		quickSort(array, pivot+1, hi, comparator);
-	    	//}
+	    	quickSort(array, low, pivot, comparator);
+	    	quickSort(array, pivot+1, hi, comparator);
     	}
     } 
     
