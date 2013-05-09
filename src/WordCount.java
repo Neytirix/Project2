@@ -72,7 +72,7 @@ public class WordCount {
         } else if (argsArray[1].equals("-hs")) {
         	heapSort(counts, new DataCountStringComparator());
         } else if (argsArray[1].equals("-os")) {
-        	//counts = quickSort(counts, new DataCountStringComparator());
+        	quickSort(counts, 0, counts.length, new DataCountStringComparator());
         } else {
         	System.out.println("incorrect number of arguments");
         	System.exit(1);
@@ -127,27 +127,47 @@ public class WordCount {
        	}
     }
     
-    /**
-    public static <E> E[] quickSort(E[] array, Comparator<E> comparator) {
-    	if (array.length < 2) {
-    		return array;
-    	}
-    	E pivot = array[0];
-    	E[] smallerArray = (E[]) new Object[array.length];
-    	E[] pivotArray = (E[]) new Object[array.length];
-    	E[] largerArray = (E[]) new Object[array.length];
-    	for (int i = 0; i < array.length; i++) {
-    		if(comparator.compare(array[i],pivot) < 0) {
-    			smallerArray[i] = array[i];
-    		} else if (comparator.compare(array[i], pivot) > 0) {
-    			largerArray[i] = array[i];
+    
+    private static <E> int partition(E[] array, int low, int hi, Comparator<E> comparator) {
+    	int left = low+1;
+    	int right = hi-1;
+    	int pivIndex = (low+hi)/2;
+    	E pivot = array[pivIndex];
+    	E temp = array[low];
+    	array[low] = pivot;
+    	array[pivIndex] = temp;  
+    	while (left < right) {
+    		if (comparator.compare(array[right],pivot) > 0) {
+    			right--;
+    		}
+    		else if (comparator.compare(array[left],pivot) < 0) {
+    			left++;
     		} else {
-    			 pivotArray[i] = array[i];
+    			E swap = array[left];
+    			array[left] = array[right];
+    			array[right] = swap;
+    			//left++;
+    			//right--;
     		}
     	}
-    			
-		return quickSort(smallerArray, comparator) + quickSort(pivotArray, comparator) + ;
-    } */
+    	array[low] = array[left];
+    	array[left] = pivot;
+    	return left;
+
+    } 
+
+
+    public static <E> void quickSort(E[] array, int low, int hi, Comparator<E> comparator) {
+    	if(hi-low > 1) {
+    		int pivot = partition(array, low, hi, comparator);
+	    	//if (low < pivot) {
+	    		quickSort(array, low, pivot, comparator);
+	    	//}
+	    	//if (hi > pivot+1) {
+	    		quickSort(array, pivot+1, hi, comparator);
+	    	//}
+    	}
+    } 
     
     
     public static void main(String[] args) {
