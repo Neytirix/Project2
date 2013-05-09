@@ -66,6 +66,7 @@ public class WordCount {
         }
 
         DataCount<String>[] counts = getCountsArray(counter);
+       
         if (argsArray.length == 1 || argsArray[1].equals("-is")) {
            	insertionSort(counts, new DataCountStringComparator());
         } else if (argsArray[1].equals("-hs")) {
@@ -120,7 +121,8 @@ public class WordCount {
        	for (int i = 0; i < array.length; i++) {
        		heap.insert(array[i]);
        	}
-       	for (int i = array.length - 1; i >= 0; i--) {
+       	for(int i = 0; i < array.length; i++) {
+       	//for (int i = array.length - 1; i >= 0; i--) {
        		array[i] = heap.deleteMin();
        	}
     }

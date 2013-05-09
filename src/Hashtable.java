@@ -21,16 +21,16 @@ public class Hashtable<E> implements DataCounter<E> {
 		}
 		int index = hasher.hash(data) % array.length;
 		boolean dataExists = false;
-		LinkedNode front = array[index];
-		if(front == null) { 
+		//LinkedNode front = array[index];
+		if(array[index] == null) { 
 			//case 1: linked list is empty, sets front node equal to value passed 
 			//with a count of 1
-			front = new LinkedNode(data, 1);
+			array[index] = new LinkedNode(data, 1);
 			size++;
 			dataExists = true;
 		} else { 
 			//case 2: searches entire list for value passed
-			LinkedNode current = front;
+			LinkedNode current = array[index];
 			while(current != null && !dataExists) { 
 				if(comparator.compare(current.data, data) == 0) {
 					current.count += 1;
@@ -41,9 +41,9 @@ public class Hashtable<E> implements DataCounter<E> {
 		}
 		if (!dataExists) { 
 			//case 3: element is not in list, adds it to front
-			LinkedNode current = new LinkedNode(data, 1, front);
-			current.next = front;
-			front = current;
+			LinkedNode current = new LinkedNode(data, 1, array[index]);
+			current.next = array[index];
+			array[index] = current;
 			size++;
 		}
 
@@ -71,29 +71,31 @@ public class Hashtable<E> implements DataCounter<E> {
 	@Override
 	public SimpleIterator<DataCount<E>> getIterator() {
 		return new SimpleIterator<DataCount<E>>() {
-			public LinkedNode current;
+			public LinkedNode current = array[0];
+			public int bucket = 0;
 			public int numSeen = 0;
 			
 			//finds first element in hashtable
-			{
-				for(int i = 0; i < array.length; i++){
-					if(array[i] != null) {
-						current = array[i];
-						numSeen++;
-						break;
-					}
-				}
-			}
 			
 			@Override
 			public DataCount<E> next() {
 				if(!hasNext()) {
         			throw new java.util.NoSuchElementException();
 				}
-				DataCount<E> dCount = new DataCount<E>(current.data, current.count);
-				if (current.next == null) {
+				DataCount<E> dCount = null;
+				if (current == null) {
 					//current = front in a new bucket (look through buckets to find new front);
+					for(int i = bucket+1; i < array.length; i++){
+						if(array[i] != null) {
+							bucket = i;
+							current = array[bucket];
+							dCount = new DataCount<E>(current.data, current.count);
+							current = current.next;
+							break;
+						}
+					}
 				} else {
+					dCount = new DataCount<E>(current.data, current.count);
 					current = current.next;
 				}
 				numSeen++;

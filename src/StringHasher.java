@@ -8,7 +8,7 @@ public class StringHasher implements Hasher<String>{
 			sum += e.charAt(i);
 			sum *= 7;  //can 7 be arbitrary? want a prime number 
 		}
-		return sum;
+		return Math.abs(sum);
 	}
 
 }
