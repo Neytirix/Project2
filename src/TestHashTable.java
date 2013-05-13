@@ -62,17 +62,17 @@ public class TestHashTable {
 	
 	@Test(timeout = TIMEOUT)
 	public void tableHas3Of5(){
-		addAndGetCount(new int[]{0, 5, -1, 5, 1, 5, 2}, 5, 3);
+		addAndGetCount(new int[]{0, 5, 1, 5, 1, 5, 2}, 5, 3);
 	}
 	
 	@Test(timeout = TIMEOUT)
 	public void iteratorGetsAllDataFromtable(){
-		int[] startArray = {7, -5, -5, -6, 6, 10, -9, 4, 8, 6};
+		int[] startArray = {7, 5, 5, 6, 6, 10, 9, 4, 8, 6};
 		String startArrayToString = intArrayToString(startArray);
 		for(int i = 0; i < startArray.length; i++)
 			table.incCount(startArray[i]);
 		// the expected array has no duplicates and is sorted
-		int[] expected = {-9, -6, -5, 4, 6, 7, 8, 10};
+		int[] expected = { 4, 5, 6, 7, 8, 9, 10};
 		
 		// construct the actual array returned by the iterator
 		SimpleIterator<DataCount<Integer>> iter = table.getIterator();
@@ -131,4 +131,10 @@ public class TestHashTable {
 	public void tableHasSize5AfterAddingRepeat0To4s(){
 		addAndTestSize(new int[]{0,0,1,1,2,2,3,3,4,4}, 5);
 	}
+	
+	@Test(timeout = TIMEOUT)
+	public void tableCanTakeNegative(){
+		addAndGetCount(new int[]{-1}, -1, 1);
+	}
+
 }
