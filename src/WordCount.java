@@ -35,8 +35,12 @@ public class WordCount {
     private static void countWords(String[] argsArray) {
     	DataCounter<String> counter = new BinarySearchTree<String>(new StringComparator());
 		String file = argsArray[0];
-		if (argsArray.length == 3) {
-		    file = argsArray[2];
+		if (argsArray.length == 3 || argsArray.length == 4) {
+			if(argsArray.length == 3) {
+				 file = argsArray[2];
+			} else {
+				file = argsArray[3];
+			}
 			if(argsArray[0].equals("-b")) {
 				counter = new BinarySearchTree<String>(new StringComparator());
 			} else if (argsArray[0].equals("-a")) {
@@ -66,19 +70,48 @@ public class WordCount {
         }
 
         DataCount<String>[] counts = getCountsArray(counter);
-       
-        if (argsArray.length == 1 || argsArray[1].equals("-is")) {
-           	insertionSort(counts, new DataCountStringComparator());
-        } else if (argsArray[1].equals("-hs")) {
-        	heapSort(counts, new DataCountStringComparator());
-        } else if (argsArray[1].equals("-os")) {
-        	quickSort(counts, 0, counts.length, new DataCountStringComparator());
-        } else {
-        	System.out.println("incorrect number of arguments");
-        	System.exit(1);
-        }
-        for (DataCount<String> c : counts)
+
+        if (argsArray[1].equals("-k")) {
+        	topKWords(argsArray[2], counts, new TopKComparator());
+    	} else {
+	        if (argsArray.length == 1 || argsArray[1].equals("-is")) {
+	           	insertionSort(counts, new DataCountStringComparator());
+	        } else if (argsArray[1].equals("-hs")) {
+	        	heapSort(counts, new DataCountStringComparator());
+	        } else if (argsArray[1].equals("-os")) {
+	        	quickSort(counts, 0, counts.length, new DataCountStringComparator());
+	        } else {
+	        	System.out.println("Incorrect number of arguments");
+	        	System.exit(1);
+	        }
+	        for (DataCount<String> c : counts) {
+	            System.out.println(c.count + " \t" + c.data);
+	       	}
+    	}
+ 
+        
+    }
+    
+    
+    private static <E> void topKWords(String number, E[] words, Comparator<E> comparator) {
+    	int k = Integer.parseInt(number);
+    	PriorityQueue<E> heap = new FourHeap<E>(comparator);
+    	int size = 0;
+    	for(int i = 0; i < words.length; i++) {
+    		heap.insert(words[i]);
+    		size++;
+    		if(size > k) {
+    			heap.deleteMin();
+    			size--;
+    		}
+    	}
+    	DataCount<String>[] array =  new DataCount[size];
+    	for(int i = array.length - 1; i >= 0; i--){
+    		array[i] = (DataCount<String>) heap.deleteMin();
+    	}
+    	for (DataCount<String> c : array) {
             System.out.println(c.count + " \t" + c.data);
+       	}
     }
     
     
