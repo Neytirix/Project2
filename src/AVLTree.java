@@ -1,5 +1,5 @@
 /* Name: Alexandra (Sasha) Babayan & Brian Park
- * Date: 5/1/2013
+ * Date: 5/14/2013
  * Project 2
 */
 
@@ -11,15 +11,29 @@
  */
 public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 
+	/**
+	 * Given a Comparator c, creates an empty AVLTree.
+	 * Takes a Comparator as an argument.
+	 */
 	public AVLTree(Comparator<? super E> c) {
 		super(c);
 	}
 
+	/**
+	 * Given a key data of type E, increments that key's count in the 
+	 * AVLTree.
+	 */
 	public void incCount(E data) {
 		overallRoot = addNode(data, overallRoot);
 	}
 	
-	
+	/**
+	 * Given a key data of type E and a Binary Search Tree, add's 
+	 * an AVLNode to the BST with its data field equal to the data
+	 * passed and a count of 1. If the AVL Node already exists in the tree,
+	 * simply increments the node's count. Returns a new AVLTree with the
+	 * added/updated node. 
+	 */
 	public AVLNode addNode(E data, BSTNode node) {
 		AVLNode currentNode = (AVLNode) node;
 		if (currentNode == null) {
@@ -37,6 +51,11 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 		return balance(currentNode);
 	}
 	
+	/**
+	 * Given an AVLNode checks the structure property and performs
+	 * rotations if necessary to keep the tree balanced. Returns 
+	 * a balanced AVLTree at the node passed.
+	 */
 	public AVLNode balance(AVLNode node) {
 		if(node == null) {
 			return node;
@@ -58,6 +77,9 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 		return node;
 	}
 	
+	/**
+	 * Given a BSTNode returns its height as an int
+	 */
 	public int height(BSTNode node) {
 		if(node == null) {
 			return -1;
@@ -67,7 +89,7 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 	
 	
 	/**
-	 * Given a BSTNode current, performs a case 1 single rotation.
+	 * Given an AVLNode current, performs a case 1 single rotation.
 	 * Returns a balanced subtree at the node passed.
 	 */
 	private AVLNode rotateLeftChild(AVLNode current) {
@@ -80,7 +102,7 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 	}
 	
 	/**
-	 * Given a BSTNode current, performs a case 4 single rotation.
+	 * Given an AVLNode current, performs a case 4 single rotation.
 	 * Returns a balanced subtree at the node passed.
 	 */
 	private AVLNode rotateRightChild(AVLNode current) {
@@ -93,7 +115,7 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 	}
 	
 	/**
-	 * Given a BSTNode current, performs a case 2 double rotation.
+	 * Given an AVLNode current, performs a case 2 double rotation.
 	 * Returns a balanced subtree at the node passed.
 	 */
 	private AVLNode doubleRotateLeft(AVLNode current){
@@ -102,14 +124,13 @@ public class AVLTree<E> extends BinarySearchTree<E> implements DataCounter<E> {
 	}
 	
 	/**
-	 * Given a BSTNode current, performs a case 3 double rotation.
+	 * Given an AVLNode current, performs a case 3 double rotation.
 	 * Returns a balanced subtree at the node passed.
 	 */
 	private AVLNode doubleRotateRight(BSTNode current){
 		current.right = rotateLeftChild((AVLNode) current.right);
 		return rotateRightChild((AVLNode) current);
 	}
-	
 		
 	
 	

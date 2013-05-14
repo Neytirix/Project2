@@ -1,5 +1,5 @@
 /* Name: Alexandra (Sasha) Babayan & Brian Park
- * Date: 5/1/2013
+ * Date: 5/4/2013
  * Project 2
 */
 
@@ -11,7 +11,7 @@ public class GArrayStack<E> implements GStack<E>{
 	private E[] stack; 
 	private int count; //current number of objects in the stack
 	
-	/*
+	/**
 	 * Constructs an ArrayStack storing type E
 	 */
 	public GArrayStack(){
@@ -19,7 +19,7 @@ public class GArrayStack<E> implements GStack<E>{
 		count = 0;
 	}
 	
-	/*
+	/**
 	 * Checks to see if the ArrayStack is empty, returns true if the ArrayStack
 	 * is empty otherwise returns false.
 	 */
@@ -30,7 +30,7 @@ public class GArrayStack<E> implements GStack<E>{
 		return false;
 	}
 
-	/*
+	/**
 	 * Takes element d of type E as a parameter and adds it to the ArrayStack 
 	 */
 	public void push(E d) {
@@ -41,7 +41,7 @@ public class GArrayStack<E> implements GStack<E>{
 		stack[count-1] = d; 	
 	}
 
-	/*
+	/**
 	 * Returns the most recent element added to the ArrayStack and removes it.
 	 * Element returned is of type E. Throws EmptyStackException if the 
 	 * ArrayStack is empty.
@@ -56,7 +56,7 @@ public class GArrayStack<E> implements GStack<E>{
 		return value;
 	}
 
-	/*
+	/**
 	 * Returns the most recent element added to the ArrayStack. Returned
 	 * element is of type E. Throws EmptyStackException if the 
 	 * ArrayStack is empty. 
@@ -68,7 +68,7 @@ public class GArrayStack<E> implements GStack<E>{
 		return stack[count-1];
 	}
 	
-	/*
+	/**
 	 * Doubles the length of the generic array passed and copies over all 
 	 * existing elements into the new array, preserving the order. Returns
 	 * the new generic array. 

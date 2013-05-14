@@ -1,12 +1,16 @@
+/* Name: Alexandra (Sasha) Babayan & Brian Park
+ * Date: 5/14/2013
+ * Project 2
+*/
 
 public class TopKComparator implements Comparator<DataCount<String>> {
 
-	/** Given two Strings, compares them lexicographically. Returns a 
-	 * negative number when the first string occurs first alphabetically,
-	 * returns a positive number when the second string occurs first 
-	 * alphabetically, returns zero when the two strings are equal. 
+	/** A Comparator for DataCount<String> that sorts two data-counts in the order
+	 *  we need for the output of WordCount when topK is chosen: lower frequency 
+	 *  comes first and frequency ties are resolved in alphabetical order.
+	 *  
+	 *  Uses String Comparator
 	 */
-
 	StringComparator alphabetical = new StringComparator();
 	@Override
 	public int compare(DataCount<String> c1, DataCount<String> c2) {

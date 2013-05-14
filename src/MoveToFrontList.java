@@ -1,11 +1,11 @@
 /* Name: Alexandra (Sasha) Babayan & Brian Park
- * Date: 5/1/2013
+ * Date: 5/14/2013
  * Project 2
 */
 
 /**
  * MoveToFrontList implements DataCounter using a linked list.
- * The constructor takes a Comparator<? super E> "fuction object" 
+ * The constructor takes a Comparator<? super E> "function object" 
  * so that items of type E can be compared. Each node associates a 
  * count with an E.
  */

@@ -1,10 +1,26 @@
+/* Name: Alexandra (Sasha) Babayan & Brian Park
+ * Date: 5/14/2013
+ * Project 2
+*/
+
+/**
+ * Hashtable implements DataCounter using separate chaining.
+ * The constructor takes a Comparator<? super E> "function object" 
+ * so that items of type E can be compared, and a Hasher "function 
+ * object" so that items of type E return a proper integer to hash.
+ * Each node associates a count with an E.
+ */
+
 public class Hashtable<E> implements DataCounter<E> {
 	private Comparator<? super E> comparator;
 	private Hasher<E> hasher;
 	private LinkedNode[] array;
 	private int size;
 	
-	
+	/**
+	 * Given a Comparator c and a Hasher h, constructs a new Hashtable object.
+	 * Takes a Comparator and a Hasher as arguments.
+	 */
 	public Hashtable(Comparator<? super E> c, Hasher<E> h) {
 		comparator = c;
 		hasher = h;
@@ -13,6 +29,11 @@ public class Hashtable<E> implements DataCounter<E> {
 		size = 0;
 	}
 	
+	/**
+	 * Given a key of type E, increments that key's count in the hashtable.
+	 * If the load factor of the hashtable is greater than .5, resizes to  
+	 * about double the size. 
+	 */
 	@Override
 	public void incCount(E data) {
 		double loadFactor = size/array.length;
@@ -21,7 +42,6 @@ public class Hashtable<E> implements DataCounter<E> {
 		}
 		int index = Math.abs(hasher.hash(data) % array.length);
 		boolean dataExists = false;
-		//LinkedNode front = array[index];
 		if(array[index] == null) { 
 			//case 1: linked list is empty, sets front node equal to value passed 
 			//with a count of 1
@@ -49,11 +69,19 @@ public class Hashtable<E> implements DataCounter<E> {
 
 	}
 
+	/**
+	 * Returns an int of the current number of elements in the hash table
+	 */
 	@Override
 	public int getSize() {
 		return size;
 	}
 
+	
+	/**
+	 * Given a key of type E, returns the corresponding int count for 
+	 * that key. Returns 0 if the element is not in the list.
+	 */
 	@Override
 	public int getCount(E data) {
 		int index = Math.abs(hasher.hash(data) % array.length);
@@ -68,6 +96,10 @@ public class Hashtable<E> implements DataCounter<E> {
 		return count;		
 	}
 
+	/**
+	 * Returns a SimpleIterator of type DataCount<E>. Iterates
+	 * over the elements. 
+	 */
 	@Override
 	public SimpleIterator<DataCount<E>> getIterator() {
 		return new SimpleIterator<DataCount<E>>() {
@@ -75,8 +107,10 @@ public class Hashtable<E> implements DataCounter<E> {
 			public int bucket = 0;
 			public int numSeen = 0;
 			
-			//finds first element in hashtable
-			
+			/**
+			 * Returns the next element in the hastable. Throws 
+			 * NoSuchElementException if the hashtable does not have a next.
+			 */
 			@Override
 			public DataCount<E> next() {
 				if(!hasNext()) {
@@ -102,12 +136,13 @@ public class Hashtable<E> implements DataCounter<E> {
 				return dCount;
 			}
 
+			/**
+			 * Returns true if the hashtable has a next element, otherwise
+			 * returns false.
+			 */
 			@Override
 			public boolean hasNext() {
-				if(numSeen == size) {
-					return false;
-				}
-				return true;
+				return (numSeen != size);
 			}
 			
 		};
@@ -115,8 +150,14 @@ public class Hashtable<E> implements DataCounter<E> {
 	
 	
 	
-	
+	/**
+	 * Given a hashtable, creates a new hashtable of about double the size.
+	 * Copies over all existing elements into their proper index using a hash 
+	 * function. Returns the new hashtable (as an array of linked lists). 
+	 */
 	private LinkedNode[] increaseTable(LinkedNode[] array) {
+		//use array.length*2 + 1 because we want our hashtable to be a prime number or 
+		//at least have as few factors as possible
 		LinkedNode[] newArray = (LinkedNode[]) new Hashtable.LinkedNode[(array.length*2)+1];
 		for(int i = 0; i <array.length; i++) {
 			LinkedNode front = array[i];
@@ -161,15 +202,6 @@ public class Hashtable<E> implements DataCounter<E> {
 	        this.count = count;
 	        this.next = next;
 	    }
-	}
-	
-	
-	
-	
-	//really similar to move to front list but can't access count field when growing table 
-	//(unless i call incCount that many times which is inefficient) 
-	//but my code right now is basically copying move to frontList
-	
-	
+	}	
 
 }

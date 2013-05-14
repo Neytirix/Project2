@@ -1,5 +1,5 @@
 /* Name: Alexandra (Sasha) Babayan & Brian Park
- * Date: 5/1/2013
+ * Date: 5/14/2013
  * Project 2
 */
 
@@ -27,10 +27,11 @@ public class WordCount {
 	}
 	
 	/**
-	 * Given an array of command line arguments (data type, sort type, text file),
-	 * prints each unique word and its corresponding count in the text file in 
-	 * descending order. Prints error statements when an incorrect number of 
-	 * arguments is input or they are input in an incorrect order.
+	 * Given an array of command line arguments (data type, sort type, (number), 
+	 * text file), prints each unique word and its corresponding count in the text 
+	 * file in descending order. If "-k (number)" is given as input, only prints 
+	 * the top K most frequent words. Prints error statements when an incorrect number 
+	 * of arguments is given as input or they are input in an incorrect order. 
 	 */
     private static void countWords(String[] argsArray) {
     	DataCounter<String> counter = null;
@@ -92,7 +93,11 @@ public class WordCount {
         
     }
     
-    
+    /**
+     * Given a String number, converts that string into an int k and prints
+     * the top k most frequently occurring words in the array of words passed. 
+     * Uses the comparator passed to determine which words occur more frequently.
+     */
     private static <E> void topKWords(String number, E[] words, Comparator<E> comparator) {
     	int k = Integer.parseInt(number);
     	PriorityQueue<E> heap = new FourHeap<E>(comparator);
@@ -159,8 +164,15 @@ public class WordCount {
        		array[i] = heap.deleteMin();
        	}
     }
-    
-    
+    /**
+     * Given a generic array, an int low, and int hi, picks a pivot in the 
+     * array and partitions through the array from low to hi and modifies it.
+     * All values less than the pivot will occur to the left of the pivot, 
+     * all values greater than the pivot will occur to the right of the pivot.
+     * Uses the comparator to determine which values are greater or less than 
+     * others. Returns the index of the pivot as an int in the modified array
+     * after the partitioning. 
+     */    
     private static <E> int partition(E[] array, int low, int hi, Comparator<E> comparator) {
     	int left = low;
     	int right = hi-1;
@@ -187,7 +199,16 @@ public class WordCount {
 
     } 
 
-
+    /**
+     * Sort the count array in descending order of count. If two elements have
+     * the same count, they should be ordered according to the comparator.
+     * 
+     * This code uses quick sort. The code is generic, but in this project
+     * we use it with DataCount<String> and DataCountStringComparator.
+     * 
+     * @param counts array to be sorted.
+	 * @param comparator for comparing elements.
+     */
     public static <E> void quickSort(E[] array, int low, int hi, Comparator<E> comparator) {
     	if(hi-low > 1) {
     		int pivot = partition(array, low, hi, comparator);

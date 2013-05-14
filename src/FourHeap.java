@@ -1,5 +1,5 @@
 /* Name: Alexandra (Sasha) Babayan & Brian Park
- * Date: 5/1/2013
+ * Date: 5/13/2013
  * Project 2
 */
 
@@ -119,7 +119,7 @@ public class FourHeap<E> implements PriorityQueue<E>{
 	
 	/**
 	 * Private method that moves an element down the FourHeap
-	 * if it is greater that the value of its parent.
+	 * if it is greater that the value of any of its children.
 	 * Modifies FourHeap structure.
 	 * Takes an index to be filled by percolating.
 	 */
