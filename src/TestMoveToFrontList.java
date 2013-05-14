@@ -1,3 +1,8 @@
+/* Name: Alexandra (Sasha) Babayan & Brian Park
+ * Date: 5/14/2013
+ * Project 2
+*/
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.*;

@@ -1,8 +1,28 @@
+/* Name: Alexandra (Sasha) Babayan & Brian Park
+ * Date: 5/14/2013
+ * Project 2
+*/
+
 import java.io.IOException;
 
-
+/**
+ * Correlator takes two files and prints a number representing
+ * the square of the Euclidean distance between the two vectors in the 
+ * space of shared words in the documents.
+ * This number is one measurement of the likelihood that the files were 
+ * written by the same author.
+ * @author Brian
+ *
+ */
 public class Correlator {
-
+	
+	/**
+	 * The main method takes an argument of a string array.
+	 * The first element of the array selects a data structure
+	 * to help analyze the correlation between two documents.
+	 * The second and third element are the names of the files to be compared.
+	 * The correlation number is printed.
+	 */
 	public static void main(String[] args) {
 		DataCounter<String> counter1 = new BinarySearchTree<String>(new StringComparator());
 		
@@ -37,6 +57,13 @@ public class Correlator {
 	}
 	
 	
+	/** 
+	 * A private method that parses each file, counting the frequency of words
+	 * and keeping track of the total number of words.
+	 * @param file, String of filename to be parsed
+	 * @param counter, data structure to hold counts
+	 * @return sum, representing the total number of words in the file
+	 */
 	private static int parseAndCount(String file, DataCounter<String> counter) {
 		int sum = 0;
 		try {
@@ -54,7 +81,14 @@ public class Correlator {
 		return sum;
 	}
 	
-	
+	/**
+	 * This method calculates the correlation in a running sum.
+	 * @param iterator, SimpleIterator iterating over the data structure (the file with less distinct words)
+	 * @param counter, the "other" data structure (the file with more distinct words)
+	 * @param iterSum, total number of words in the file with less distinct words
+	 * @param counterSum, total number of words in the "other" file
+	 * @return correlation, a double.
+	 */
 	private static double compare(SimpleIterator<DataCount<String>> iterator, DataCounter<String> counter, int iterSum, int counterSum){
 		double corr = 0;
 		while(iterator.hasNext()) {
