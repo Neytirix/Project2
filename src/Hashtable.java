@@ -19,7 +19,7 @@ public class Hashtable<E> implements DataCounter<E> {
 		if(loadFactor >= .5) {
 			array = increaseTable(array);
 		}
-		int index = hasher.hash(data) % array.length;
+		int index = Math.abs(hasher.hash(data) % array.length);
 		boolean dataExists = false;
 		//LinkedNode front = array[index];
 		if(array[index] == null) { 
@@ -56,7 +56,7 @@ public class Hashtable<E> implements DataCounter<E> {
 
 	@Override
 	public int getCount(E data) {
-		int index = hasher.hash(data) % array.length;
+		int index = Math.abs(hasher.hash(data) % array.length);
 		LinkedNode current = array[index];
 		int count = 0;
 		while(current != null) {
