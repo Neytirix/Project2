@@ -33,8 +33,8 @@ public class WordCount {
 	 * arguments is input or they are input in an incorrect order.
 	 */
     private static void countWords(String[] argsArray) {
-    	DataCounter<String> counter = new BinarySearchTree<String>(new StringComparator());
-		String file = argsArray[0];
+    	DataCounter<String> counter = null;
+		String file = null;
 		if (argsArray.length == 3 || argsArray.length == 4) {
 			if(argsArray.length == 3) {
 				 file = argsArray[2];
@@ -53,7 +53,7 @@ public class WordCount {
 				System.out.println("incorrect argument");
 				System.exit(1);
 			}
-    	} else if (argsArray.length != 1) {
+    	} else {
     		System.out.println("incorrect number of arguments");
     		System.exit(1);
     	}
@@ -74,7 +74,7 @@ public class WordCount {
         if (argsArray[1].equals("-k")) {
         	topKWords(argsArray[2], counts, new TopKComparator());
     	} else {
-	        if (argsArray.length == 1 || argsArray[1].equals("-is")) {
+	        if (argsArray[1].equals("-is")) {
 	           	insertionSort(counts, new DataCountStringComparator());
 	        } else if (argsArray[1].equals("-hs")) {
 	        	heapSort(counts, new DataCountStringComparator());

@@ -29,9 +29,13 @@ public class Correlator {
 		}
 		int sum1 = parseAndCount(args[1],counter1);
 		int sum2 = parseAndCount(args[2],counter2);
-		 DataCount<String>[] counts1 = WordCount.getCountsArray(counter1);
-		 DataCount<String>[] counts2 = WordCount.getCountsArray(counter2);
+		if(counter1.getSize() > counter2.getSize()) {
+			System.out.println(compare(counter2.getIterator(),counter1,sum2, sum1));
+		} else {
+			System.out.println(compare(counter1.getIterator(),counter2,sum1, sum2));
+		}
 	}
+	
 	
 	private static int parseAndCount(String file, DataCounter<String> counter) {
 		int sum = 0;
@@ -49,4 +53,23 @@ public class Correlator {
 		}
 		return sum;
 	}
+	
+	
+	private static double compare(SimpleIterator<DataCount<String>> iterator, DataCounter<String> counter, int iterSum, int counterSum){
+		double corr = 0;
+		while(iterator.hasNext()) {
+			DataCount<String>  current = iterator.next();
+			double i = (double) current.count;
+			double freq = i/iterSum;
+			if(freq < .01 && freq > .0001) {
+				double iCounter= (double) counter.getCount(current.data);
+				double freqCounter = iCounter/counterSum;
+				if(freqCounter < .01 && freqCounter > .0001) {
+					corr += Math.pow((freq - freqCounter), 2);
+				}
+			}
+		}
+		return corr;
+	}
+	
 }
