@@ -81,7 +81,7 @@ public class WordCount {
 	        } else if (argsArray[1].equals("-os")) {
 	        	quickSort(counts, 0, counts.length, new DataCountStringComparator());
 	        } else {
-	        	System.out.println("Incorrect number of arguments");
+	        	System.out.println("Incorrect arguments");
 	        	System.exit(1);
 	        }
 	        for (DataCount<String> c : counts) {
@@ -198,6 +198,9 @@ public class WordCount {
     
     
     public static void main(String[] args) {
+    	long before = System.currentTimeMillis();
     	countWords(args);
+    	long after = System.currentTimeMillis();
+    	System.out.println(after-before);
     }
 }
