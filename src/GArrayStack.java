@@ -1,5 +1,5 @@
 /* Name: Alexandra (Sasha) Babayan & Brian Park
- * Date: 5/4/2013
+ * Date: 5/14/2013
  * Project 2
 */
 
@@ -24,10 +24,7 @@ public class GArrayStack<E> implements GStack<E>{
 	 * is empty otherwise returns false.
 	 */
 	public boolean isEmpty() {
-		if (count == 0) {
-			return true;
-		}
-		return false;
+		return (count == 0);
 	}
 
 	/**

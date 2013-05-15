@@ -24,8 +24,7 @@ public class Hashtable<E> implements DataCounter<E> {
 	public Hashtable(Comparator<? super E> c, Hasher<E> h) {
 		comparator = c;
 		hasher = h;
-		array = (LinkedNode[]) new Hashtable.LinkedNode[37]; //what should starting table size be since we want 
-																//prime number, is this arbitrary?
+		array = (LinkedNode[]) new Hashtable.LinkedNode[37]; //arbitrary prime number
 		size = 0;
 	}
 	

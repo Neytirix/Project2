@@ -51,11 +51,11 @@ public class WordCount {
 			} else if (argsArray[0].equals("-h")) {
 				counter = new Hashtable<String>(new StringComparator(), new StringHasher()); 
 			} else {
-				System.out.println("incorrect argument");
+				System.out.println("Incorrect argument");
 				System.exit(1);
 			}
 		} else {
-			System.out.println("incorrect number of arguments");
+			System.out.println("Incorrect number of arguments");
 			System.exit(1);
 		}
 		try {
