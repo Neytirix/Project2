@@ -112,6 +112,10 @@ public class MoveToFrontList<E> implements DataCounter<E> {
 		return new SimpleIterator<DataCount<E>>() {
 			public LinkedNode current = front;
 			
+			/**
+			 * Returns the next element in the MoveToFrontList.
+			 * Throws NoSuchElementException if there is no next.
+			 */
 			@Override
 			public DataCount<E> next() {
 				if(!hasNext()) {
@@ -122,6 +126,9 @@ public class MoveToFrontList<E> implements DataCounter<E> {
 				return dCount;
 			}
 
+			/**
+			 * Returns true if MoveToFrontList has a next element.
+			 */
 			@Override
 			public boolean hasNext() {
 				return (current != null); 

@@ -11,7 +11,6 @@ import java.io.IOException;
  * space of shared words in the documents.
  * This number is one measurement of the likelihood that the files were 
  * written by the same author.
- * @author Brian
  *
  */
 public class Correlator {
